@@ -1,0 +1,254 @@
+# UniWorkers – System Design
+
+A school-only marketplace connecting Spartans with student service providers. Browse freely; sign up only when you avail a service.
+
+## 1. User Flow
+
+```mermaid
+flowchart TD
+A[Guest opens site] --> B[Browse / search / filter services]
+B --> C[View listing and worker profile]
+C --> D{Clicks Hire / Book}
+D -->|Not logged in| E[Sign up with school email + OTP]
+E --> F[Return to same listing]
+D -->|Logged in| F
+F --> G[Fill booking: package, notes, schedule]
+G --> H{Worker response}
+H -->|Declines| I[Client notified, can rebook others]
+H -->|Counter-offer| G
+H -->|Accepts| J[Order in progress + chat]
+J --> K[Worker delivers]
+K --> L{Client confirms}
+L -->|Dispute| M[Admin mediation]
+L -->|Confirms| N[Payment released]
+M --> N
+N --> O[Both leave reviews]
+```
+
+## 2. Entity Relationship Diagram
+
+```mermaid
+erDiagram
+USERS ||--o| WORKER_PROFILES : has
+USERS ||--o{ SERVICES : "offers (as worker)"
+USERS ||--o{ ORDERS : "places (as client)"
+USERS ||--o{ JOB_REQUESTS : posts
+USERS ||--o{ FAVORITES : saves
+USERS ||--o{ NOTIFICATIONS : receives
+USERS ||--o{ REPORTS : files
+CATEGORIES ||--o{ SERVICES : groups
+CATEGORIES ||--o{ JOB_REQUESTS : groups
+SERVICES ||--o{ SERVICE_IMAGES : has
+SERVICES ||--o{ ORDERS : "booked in"
+SERVICES ||--o{ FAVORITES : "saved as"
+JOB_REQUESTS ||--o{ PROPOSALS : receives
+USERS ||--o{ PROPOSALS : sends
+ORDERS ||--o{ MESSAGES : contains
+ORDERS ||--o| PAYMENTS : "paid by"
+ORDERS ||--o{ REVIEWS : gets
+VOUCHERS ||--o{ ORDERS : "applied to"
+USERS {
+int id PK
+string student_id UK
+string email UK
+string password_hash
+string full_name
+string course_year
+string avatar_url
+enum role "student, admin"
+bool email_verified
+enum status "active, suspended, banned"
+datetime created_at
+}
+WORKER_PROFILES {
+int user_id PK, FK
+text bio
+string skills
+string portfolio_url
+enum verification "pending, verified, rejected"
+decimal avg_rating
+int completed_orders
+bool is_available
+}
+CATEGORIES {
+int id PK
+string name
+string icon
+}
+SERVICES {
+int id PK
+int worker_id FK
+int category_id FK
+string title
+text description
+decimal price
+enum price_type "fixed, hourly"
+int delivery_days
+enum status "active, paused, removed"
+}
+SERVICE_IMAGES {
+int id PK
+int service_id FK
+string image_url
+}
+JOB_REQUESTS {
+int id PK
+int client_id FK
+int category_id FK
+string title
+text description
+decimal budget
+date deadline
+enum status "open, awarded, closed"
+}
+PROPOSALS {
+int id PK
+int job_request_id FK
+int worker_id FK
+decimal price
+text message
+enum status "pending, accepted, rejected"
+}
+ORDERS {
+int id PK
+int client_id FK
+int worker_id FK
+int service_id FK
+int voucher_id FK
+decimal total_price
+text notes
+datetime scheduled_at
+enum status "pending, accepted, in_progress, delivered, completed, cancelled, disputed"
+datetime created_at
+}
+MESSAGES {
+int id PK
+int order_id FK
+int sender_id FK
+text body
+string file_url
+datetime sent_at
+bool is_read
+}
+PAYMENTS {
+int id PK
+int order_id FK
+enum method "cash, gcash, maya, bank"
+decimal amount
+decimal platform_fee
+enum status "pending, held, released, refunded"
+string reference_no
+}
+REVIEWS {
+int id PK
+int order_id FK
+int reviewer_id FK
+int reviewee_id FK
+int rating
+text comment
+datetime created_at
+}
+FAVORITES {
+int user_id FK
+int service_id FK
+}
+NOTIFICATIONS {
+int id PK
+int user_id FK
+string type
+string message
+bool is_read
+datetime created_at
+}
+REPORTS {
+int id PK
+int reporter_id FK
+string target_type
+int target_id
+text reason
+enum status "open, reviewed, resolved"
+}
+VOUCHERS {
+int id PK
+string code UK
+decimal discount
+date expires_at
+int max_uses
+}
+```
+
+### Design notes
+
+- `orders.worker_id` is stored directly so history stays intact even if a service is edited or removed.
+- `reviews` has two rows per order (client reviews worker, worker reviews client); allow only when `orders.status = completed`.
+- `favorites` uses a composite primary key (`user_id`, `service_id`).
+- `reports.target_type` + `target_id` lets users report a user, service, or message with one table.
+- Guests need no table: browsing is read-only on `services`, `worker_profiles` and `reviews`.
+- A user becomes a worker by creating a `worker_profiles` row; there is no separate account type.
+
+## 3. Page-by-Page Sitemap
+
+### Public (no login)
+
+- **Home**: search bar, category tiles, trending, top-rated Spartans
+- **Browse / Search results**: filters and sort
+- **Category page**
+- **Service details**: gallery, packages, reviews, Hire button
+- **Worker profile**: bio, portfolio, services, reviews
+- **Open job requests** (view only)
+- **About, FAQ / Help, Terms, Privacy**
+- **Login / Sign up / Verify OTP / Forgot password**
+
+### Client (logged in)
+
+- **Booking / Checkout**: package, notes, schedule, voucher, payment method
+- **My Orders** → Order details (status, chat, files, confirm or dispute)
+- **Post a Job Request**
+- **My Job Requests** → View proposals → Accept
+- **Favorites**
+- **Messages** (inbox)
+- **Write Review**
+- **Notifications**
+- **Account Settings**: profile, password, privacy
+
+### Worker dashboard
+
+- **Become a Worker** (application and verification)
+- **Dashboard**: stats, earnings, new requests
+- **My Services** → Create / Edit / Pause
+- **Incoming Orders** → Accept, decline, counter, deliver
+- **Browse Job Requests** → Send proposal
+- **My Proposals**
+- **Availability Calendar**
+- **Earnings and Payouts**
+- **Portfolio Manager**
+
+### Admin panel
+
+- **Dashboard**: users, orders, revenue, charts
+- **Users**: verify, suspend, ban
+- **Worker Applications**: approve or reject
+- **Services and Listings**: moderate
+- **Categories**: manage
+- **Orders and Payments**
+- **Reports and Disputes**
+- **Vouchers and Promos**
+- **Announcements**
+
+### Navigation structure
+
+```mermaid
+flowchart LR
+H[Home] --> BR[Browse] --> SD[Service Details] --> WP[Worker Profile]
+SD -->|Hire| AUTH{Logged in?}
+AUTH -->|No| SU[Sign up / Login] --> BK[Booking]
+AUTH -->|Yes| BK --> OD[Order Details]
+OD --> CH[Chat]
+OD --> RV[Review]
+H --> JR[Job Requests]
+H --> ACC[Account]
+ACC --> MO[My Orders]
+ACC --> FV[Favorites]
+ACC --> WD[Worker Dashboard]
+ACC --> NT[Notifications]
+```
