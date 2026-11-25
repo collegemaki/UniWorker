@@ -78,7 +78,7 @@ After an order is completed, the client and the worker can rate and review each 
 
 | Team Member | Role |
 |---|---|
-| Justin Reneir Maquiran | Frontend and Backend |
+| Justin Reneir Maquiran | Project Leader |
 | Jeshreel Cuevas | TBA |
 | Tristan James Bonto | TBA |
 
@@ -101,6 +101,6 @@ TBA
 
 | Name | Contribution |
 |---|---|
-| Justin Reneir Maquiran | TBA |
+| Justin Reneir Maquiran | Front Page |
 | Jeshreel Cuevas | TBA |
 | Tristan James Bonto | TBA |
