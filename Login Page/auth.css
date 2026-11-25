@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LEFT SECTION */
+
+.left-section {
+    width: 50%;
+    background: #171717;
+    color: white;
+    padding: 50px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    color: #EF3340;
+    font-size: 28px;
+}
+
+.intro {
+    max-width: 450px;
+}
+
+.intro h1 {
+    font-size: 43px;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
+
+.intro h1 span {
+    color: #EF3340;
+}
+
+.intro p {
+    color: #cccccc;
+    line-height: 1.7;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.footer {
+    color: #888;
+    font-size: 12px;
+}
+
+/* RIGHT SECTION */
+
+.right-section {
+    width: 50%;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: 100%;
+    justify-content: center;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box h1 {
+    color: #171717;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.login-box > p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.forgot {
+    display: block;
+    text-align: right;
+    margin-top: 12px;
+    color: #D92332;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: #D92332;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: 22px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.right-section {
+    background-color: rgb(253, 253, 253);
+}
+.signup {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.signup a {
+    color: #D92332;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+    }
+
+    .left-section {
+        min-height: 300px;
+        padding: 30px;
+    }
+
+    .intro h1 {
+        font-size: 32px;
+    }
+
+    .right-section {
+        padding: 40px 25px;
+    }
+}
