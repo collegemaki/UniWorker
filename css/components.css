@@ -1,0 +1,161 @@
+.icon-btn {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-btn:focus-visible,
+.tab:focus-visible,
+.chip:focus-visible,
+.hire:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 2px;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 16px;
+  background: var(--bg);
+}
+
+.chip {
+  flex: none;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+.main h2 {
+  margin: 6px 0 10px;
+  font-size: 16px;
+}
+
+.card {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.avatar {
+  display: grid;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--red);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--red-soft);
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.badge svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 3;
+}
+
+.role {
+  margin: 2px 0 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.stars {
+  color: var(--star);
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.stars span {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.price {
+  font-weight: 700;
+}
+
+.price small {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.hire {
+  padding: 9px 22px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--red);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.page-placeholder {
+  padding: 60px 24px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.page-placeholder h2 {
+  color: var(--text);
+  font-size: 20px;
+}

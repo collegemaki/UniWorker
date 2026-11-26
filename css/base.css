@@ -1,0 +1,72 @@
+:root {
+  color-scheme: light;
+  --red: #c8102e;
+  --red-soft: #fce8eb;
+  --bg: #f6f3f3;
+  --card: #fff;
+  --text: #221a1b;
+  --muted: #76696b;
+  --line: #ece4e5;
+  --star: #c8102e;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --red: #dc0824;
+    --red-soft: #3a1a20;
+    --bg: #140f10;
+    --card: #1f1819;
+    --text: #f7eeef;
+    --muted: #b3a3a6;
+    --line: #33282a;
+    --star: #e40927;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --red: #e5384f;
+  --red-soft: #3a1a20;
+  --bg: #140f10;
+  --card: #1f1819;
+  --text: #f7eeef;
+  --muted: #b3a3a6;
+  --line: #33282a;
+  --star: #ff6b7f;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  background: var(--red);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+}
+
+svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
