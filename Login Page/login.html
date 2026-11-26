@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniWorker Login</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div class="main-container">
+
+    <!-- LEFT SIDE -->
+    <div class="left-section">
+
+        <h2 class="logo"><span style="color: white;">Uni</span><span style="color: red;">Worker</span></h2>
+
+        <div class="intro">
+            <h1>Your campus. <em><span style="color: red;">Your schedule.</span></em>Your income.</h1>
+
+            <p>Make your free time productive with flexible part-time jobs through UniWorker.</p>
+        </div>
+
+        <p class="footer">
+            © 2026 UniWorker. All rights reserved.
+        </p>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-section">
+
+        <div class="login-box">
+
+            <h1>Welcome Back!</h1>
+            <p>Login to your UniWorker account.</p>
+
+            <form id="loginForm">
+                <label>Email Address</label>
+                <input type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label>Password</label>
+                <input type="password"
+                  id="password"
+                    placeholder="Enter your password"
+                    required>
+
+                <a href="#" class="forgot">
+                    Forgot Password?
+                </a>
+
+                <button type="submit" class="login-btn">
+                    LOGIN
+                </button>
+
+            </form>
+
+            <p id="message"></p>
+
+            <p class="signup">
+                Don't have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="auth.js"></script>
+
+</body>
+</html>

@@ -79,7 +79,7 @@ After an order is completed, the client and the worker can rate and review each 
 | Team Member | Role |
 |---|---|
 | Justin Reneir Maquiran | Project Leader |
-| Jeshreel Cuevas | TBA |
+| Jeshreel Cuevas | System/Design Lead |
 | Tristan James Bonto | TBA |
 
 ## 8. OOP Concepts Demonstrated
